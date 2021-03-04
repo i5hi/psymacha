@@ -22,7 +22,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/psymacha/views/
+      device: /home/vagrant/views/
       o: bind
 
 networks:
