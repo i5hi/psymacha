@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  nginx:
+    build:
+      context: infra/nginx
+      dockerfile: Dockerfile.dev
+    container_name: mew
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - web-root:/var/www/html
+      - infra/nginx/dev/nginx-conf:/etc/nginx/conf.d
+    networks:
+      - stackmate-network
+
+volumes:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/psymacha/views/
+      o: bind
+
+networks:
+  stackmate-network:
+    driver: bridge
+
+    
