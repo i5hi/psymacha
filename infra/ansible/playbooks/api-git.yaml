@@ -1,0 +1,15 @@
+- hosts: swala-m
+  gather_facts: false
+  vars_files:
+       - secrets.yml
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+    destination: "/home/sushi/satswala-mono"
+
+  tasks:
+
+    - name: Pull satswala-mono
+      git:
+        repo: "https://{{gituser}}:{{gitpass}}@gitlab.com/stackmate/satswala-mono.git"
+        dest: "{{ destination }}"
+      

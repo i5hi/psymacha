@@ -1,0 +1,10 @@
+- hosts: test
+  gather_facts: false
+  vars_files:
+       - secrets.yml
+  tasks:
+    - user: name=sushi password={{ serverpass }}
+    - user: name=node password={{ serverpass }}
+    - user: name=bitcoin password={{ serverpass }}
+    - user: name=nginx password={{ serverpass }}    
+    - user: name=mongodb password={{ serverpass }}

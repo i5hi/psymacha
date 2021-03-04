@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  vault:
+    build:
+      context: ../../vault
+    image: sats-vault
+    container_name: articuno
+    restart: unless-stopped
+    ports:
+      - "8200:8200"
+    volumes:
+      - vault-logs:/vault/logs
+      - vault-raft:/vault/raft
+      - vault-config:/vault/config
+    networks:
+      - stackmate-network
+    environment:
+      - VAULT_ADDR=http://127.0.0.1:8200
+
+  nginx:
+    image: nginx:mainline-alpine
+    container_name: mewtwo
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
+    depends_on:
+      - vault
+    networks:
+      - stackmate-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: electrode
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - nginx
+    command: certonly --webroot --webroot-path=/var/www/html --email tech@stackmate.in --agree-tos --no-eff-email --force-renewal -d vault.satswala.com
+
+volumes:
+  vault-logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/s5secrets/vault/logs
+      o: bind
+
+  vault-raft:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/s5secrets/vault/raft
+      o: bind
+
+  vault-config:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/s5secrets/vault/config
+      o: bind
+
+  certbot-etc:
+  certbot-var:
+
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/s5secrets/certs/dhparam/
+      o: bind
+
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/nginx/views
+      o: bind
+
+networks:
+  stackmate-network:
+    driver: bridge

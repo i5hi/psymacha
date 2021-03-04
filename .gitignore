@@ -1,0 +1,69 @@
+# ROOT
+*.git
+*.env
+.vscode
+.keys
+winston
+
+# INFRA
+*.vagrant
+infra/vagrant/Vagrantfile
+
+infra/packer/vars.json
+
+*.terraform
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.terraform.local.hcl
+
+# APP
+
+# TS
+app/typescript/node_modules/
+app/typescript/dist/
+
+# RUST
+app/rust/target
+
+# GO
+app/go/pkg/firebase/satswala-firebase.json
+
+
+#DART
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+# Web related
+lib/generated_plugin_registrant.dart
+# Symbolication related
+app.*.symbols
+# Obfuscation related
+app.*.map.json
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+

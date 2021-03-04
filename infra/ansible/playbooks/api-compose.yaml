@@ -1,0 +1,25 @@
+- hosts: swala-m
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+    home_folder: /home/ishi
+
+  tasks:
+
+    - name: Set perms for compose-vars script
+      file: 
+        path: /home/sushi/satswala-mono/prod-compose-vars.bash
+        state: file
+        owner: sushi
+        mode: u+rwx,g-rwx,o-rwx
+
+    - name: Compose Vars
+      shell: |
+        cd /home/sushi/satswala-mono
+        bash prod-compose-vars.bash
+
+    - name: Compose
+      shell: |
+         echo "RUN COMPOSE MANUALLY"
+        # cd /home/sushi/satswala-mono
+        # docker-compose up -d 

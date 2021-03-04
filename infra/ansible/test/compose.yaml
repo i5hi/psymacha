@@ -1,0 +1,17 @@
+- hosts: test
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+    home_folder: /home/ishi
+
+  tasks:
+    - name: Set Vars
+      shell: |
+        cd /home/node/satswala-mono
+        bash prod-compose-vars.bash
+
+    - name: Compose
+      shell: |
+         echo "RUN COMPOSE MANUALLY"
+        # cd /home/sushi/satswala-mono
+        # docker-compose up -d 

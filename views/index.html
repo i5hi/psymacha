@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>psymacha::oss.records</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <link rel="stylesheet" href="/css/mdb.min.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    function generateBarCode() {
+      var nric = $('#text').val();
+      var url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + nric + '&amp;size=50x50';
+      $('#barcode').attr('src', url);
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <header>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light pink scrolling-navbar">
+      <img class="sats-ico" loading="lazy" src='/img/saturn0.png' href="https://api.satswala.com/admin">
+      PSYMACHA
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      </div>
+    </nav>
+    <div class='container-fluid nav-line'>
+    </div>
+  </header>
+
+  <br>
+
+
+  <main>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4"></div>
+
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <!-- Default form login -->
+
+          <form class="text-center border border-light p-5" action="#!">
+
+            <p class="h4 mb-4">Culture Access</p>
+
+            <!-- Admin -->
+            <input type="text" id="admin" class="" placeholder="Name">
+            <!-- Secret -->
+            <br>
+            <input type="password" id="pass" class="" placeholder="Secret">
+            <!-- 2FA -->
+            <br>
+            <input type="text" id="totp" class="" placeholder="2FA" autocomplete="off">
+            <br>
+
+            <!-- Sign in button -->
+            <button class="btn btn-info btn-block " type="submit" onclick='authenticate()'>Enter</button>
+
+
+          </form>
+          <!-- Default form login -->
+        </div>
+        <br>
+
+        <div class="col-sm-12 col-md-12 col-lg-4"></div>
+
+      </div>
+    </div>
+
+  </main>
+  <!-- Footer -->
+  <footer class="page-footer font-small teal pt-4">
+
+    <!-- Footer Text -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">
+
+        <a href="https://psymacha.org/"> Support</a>
+        <br>
+        <br>
+
+        <img id='barcode'
+          src="https://api.qrserver.com/v1/create-qr-code/?data=bitcoin:bc1q375syrkmlzd5yu4578f99wt6thcqele4433m6j;size=100x100"
+          alt="" title="Bitcoin" width="50" height="50" />
+
+
+
+        <br>
+        <p>38ZPEgbwJ1uk7akBhYJngte1qhpi81M8nu</p>
+        <br>
+    
+
+        <i class="fab fa-bitcoin"></i>
+        <i class="fab fa-linux"></i>
+        <i class="fas fa-om"></i>
+      </div>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+</body>
+
+<!-- MDB -->
+<script type="text/javascript" src="/js/auth.js"></script>
+<script type="text/javascript" src="/js/mdb.min.js"></script>
+
+<!-- Custom scripts -->
+<div class="end-line"></div>
+
+</html>

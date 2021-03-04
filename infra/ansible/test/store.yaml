@@ -1,0 +1,93 @@
+- hosts: test
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+    home_folder: /home/ishi
+  tasks:
+    - file: 
+        path: /mnt/s5persistence
+        state: directory
+        owner: sushi
+        group: sushi
+        mode: 0770
+        recurse: yes
+
+    - name: Mount s5persistence block storage volume
+      shell: |
+        mount -o discard,defaults,noatime /dev/disk/by-id/scsi-0DO_Volume_s5persistence-test /mnt/s5persistence
+        echo '/dev/disk/by-id/scsi-0DO_Volume_s5persistence-test /mnt/s5persistence ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab
+
+    - file: 
+        path: /mnt/s5persistence/mongo
+        state: directory
+        owner: mongodb
+        mode: 0700
+        recurse: yes
+
+    - file: 
+        path: /mnt/s5persistence/mongo/data
+        state: directory
+        owner: mongodb
+        mode: 0700
+        recurse: yes
+
+    - file: 
+        path: /mnt/s5persistence/mongo/configdb
+        state: directory
+        owner: mongodb
+        mode: 0700
+        recurse: yes
+
+    - file: 
+        path: /mnt/s5persistence/.keys
+        state: directory
+        owner: node
+        mode: 0700
+        recurse: yes
+
+    - file: 
+        path: /mnt/s5persistence/winston
+        state: directory
+        owner: node
+        recurse: yes
+
+    - file: 
+        path: /mnt/s5persistence/bitcoin/
+        state: directory
+        owner: bitcoin
+        mode: u+rwx,g-rwx,o-rwx
+        recurse: yes
+
+    - file: 
+        path: /mnt/s5persistence/certs/dhparam
+        state: directory
+        owner: nginx
+        mode: u+rw,g-rwx,o-rwx
+        recurse: yes
+
+    - name: Create DHPARAM
+      shell: |
+        openssl dhparam -out /mnt/s5persistence/certs/dhparam/dhparam-2048.pem 2048
+          
+  
+    - file: 
+        path: /mnt/s5persistence/certs/dhparam/
+        state: directory
+        owner: nginx
+        mode: u+rw,g-rwx,o-rwx
+        recurse: yes
+
+    - name: Copy Bitcoin conf to persistent volume
+      copy:
+        src: "{{ home_folder }}/satswala-mono/infra/bitcoin/bitcoin.test.conf"
+        dest: "/mnt/s5persistence/bitcoin/.bitcoin/bitcoin.conf"
+        owner: bitcoin
+        mode: 700
+
+    - name: Copy Bitcoin walletnotify to persistent volume
+      copy:
+        src: "{{ home_folder }}/satswala-mono/infra/bitcoin/walletnotify.sh"
+        dest: "/mnt/s5persistence/bitcoin/walletnotify.sh"
+        owner: bitcoin
+        mode: 700
+    
