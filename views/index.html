@@ -162,15 +162,6 @@ background-color: #FFFFFF  ;
 
 </style>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script type="text/javascript">
-    function generateBarCode() {
-      var nric = $('#text').val();
-      var url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + nric + '&amp;size=92x92';
-      $('#barcode').attr('src', url);
-    }
-  </script>
-
 </head>
 
 <body>
@@ -192,7 +183,7 @@ background-color: #FFFFFF  ;
 
         <div class="col-sm-12 col-md-12 col-lg-4">
           <!-- Default form login -->
-          <img class="the-man centerme" loading="lazy" src="/assets/img/oss-front.png">
+          <img class="the-man centerme" loading="lazy" src="/assets/img/oss-front.png" width="30vw" height="30vh">
           <br>
 
           <h3 class="centerme">The Origins</h3>
