@@ -6,7 +6,7 @@
 winston
 
 # INFRA
-*.vagrant
+*infra/vagrant/.vagrant
 infra/vagrant/Vagrantfile
 
 infra/packer/vars.json
